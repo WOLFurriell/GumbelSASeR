@@ -1,5 +1,5 @@
 #-----------------------------------------------------------
-dir<-"D:/Estatística/ESTATÍSTICA_COMPUTACIONAL_II/MLE/Gumbel_Latex/"
+dir <- "D:/EstatÃ­stica/ESTATÃSTICA_COMPUTACIONAL_II/MLE/Gumbel_Latex/"
 setwd(dir)
 # Wesley Furriel RA: 61493
 #-----------------------------------------------------------
@@ -12,89 +12,90 @@ rm(list = ls())
 
 #---------------------------------------------------------
 # Funcao densidade de probabilidade (d) fdp
-gumbeld<-function(x,mu,sigma){
-  aux<-((x - mu)/sigma)
+gumbeld <- function(x,mu,sigma){
+  aux <- ((x - mu)/sigma)
   exp(-aux -exp(-aux)) / sigma
 }
 gumbeld(x=2,mu=1.5,sigma=2)
 dgumbel(x=2,mu=1.5,sigma=2)
 
 # Funcao distribuicao de prob. (p) dist. acumulada
-gumbelp<-function(q,mu,sigma){
+gumbelp <- function(q,mu,sigma){
   exp(-exp((-q + mu) / sigma))
 }
-gumbelp(q=2,mu=1.5,sigma=2)
-pgumbel(q=2,mu=1.5,sigma=2,lower.tail=TRUE,log.p=FALSE)
+gumbelp(q = 2, mu = 1.5, sigma = 2)
+pgumbel(q = 2, mu = 1.5, sigma = 2, lower.tail = TRUE, log.p = FALSE)
 
 # Funcao quantil (q)
-gumbelq<-function(p,mu,sigma){
+gumbelq <- function(p,mu,sigma){
   mu - sigma*log(-log(p))
 }
-gumbelq(p=0.5,mu=1.5,sigma=2)
-qgumbel(p=0.5,mu=1.5,sigma=2, lower.tail = TRUE, log.p = FALSE)
+gumbelq(p = 0.5, mu = 1.5, sigma = 2)
+qgumbel(p = 0.5, mu = 1.5, sigma = 2, lower.tail = TRUE, log.p = FALSE)
 
 #Funcao para valores aleatorios
-gumbelr<-function(n,mu,sigma){
-  U<-runif(n)
+gumbelr <- function(n, mu, sigma){
+  U <- runif(n)
   gumbelq(U,mu,sigma)
 }
-gumbelr(n=1,mu=2,sigma=3)
-rgumbel(n=1,mu=2,sigma=3)
+gumbelr(n = 1, mu = 2, sigma = 3)
+rgumbel(n = 1, mu = 2, sigma = 3)
 
 #Verificando o ajuste
 #-----------------------------------------------------------
-va <- gumbelr(n=1000,mu=2,sigma=1.5)
-jpeg("graph0.jpeg",height = 6, width = 8, units = 'in',res=800)
+va <- gumbelr(n = 1000, mu = 2, sigma = 1.5)
+jpeg("graph0.jpeg",height = 6, width = 8, units = 'in', res = 800)
   hist(va,probability = T)
-     curve(gumbeld(x, mu=2, sigma=1.5), add=TRUE,col="blue",lwd=2)
+     curve(gumbeld(x, mu=2, sigma=1.5), add=TRUE,col = "blue", lwd = 2)
 dev.off()
 #-----------------------------------------------------------------------
 # Grafico da densidade
-x <- seq(-4, 20, length=1000)
-hx<-gumbeld(x=x,mu=0,sigma=1)
-hx1<-gumbeld(x=x,mu=0.5,sigma=2)
-hx2<-gumbeld(x=x,mu=1.5,sigma=3)
-hx3<-gumbeld(x=x,mu=3,sigma=4)
-jpeg("graph1.jpeg",height = 6, width = 8, units = 'in',res=800)
-plot(x, hx, type="l", lty=2,lwd=2)
+x   <- seq(-4, 20, length=1000)
+hx  <- gumbeld(x = x, mu = 0, sigma = 1)
+hx1 <- gumbeld(x = x, mu = 0.5, sigma = 2)
+hx2 <- gumbeld(x = x, mu = 1.5, sigma = 3)
+hx3 <- gumbeld(x = x, mu = 3, sigma = 4)
+jpeg("graph1.jpeg",height = 6, width = 8, units = 'in', res = 800)
+plot(x, hx, type = "l", lty = 2, lwd = 2)
 colors <- c("black","blue", "darkgreen", "red")
 labels <- c(expression(mu ~ "=0"~~~~sigma~"=1"),
             expression(mu ~ "=0.5"~sigma~"=2"),
             expression(mu ~ "=1.5"~sigma~"=3"),
             expression(mu ~ "=3"~~~~sigma~"=4"))
-lines(x,hx1,col=colors[2],lwd=2)
-lines(x,hx2,col=colors[3],lwd=2)
-lines(x,hx3,col=colors[4],lwd=2)
+lines(x, hx1, col = colors[2], lwd = 2)
+lines(x, hx2, col = colors[3], lwd = 2)
+lines(x, hx3, col = colors[4], lwd = 2)
 legend("topright", inset=.05,
-       labels, lwd=2, lty=c(2, 1, 1, 1), col=colors)
+       labels, lwd = 2, lty=c(2, 1, 1, 1), col = colors)
 dev.off()
 
 #----------------------------------------------------------
 # Grafico da acumulada 
-hx  <- gumbelp(q=x,mu=0,sigma=1)
-hx1 <- gumbelp(q=x,mu=0.5,sigma=2)
-hx2 <- gumbelp(q=x,mu=1.5,sigma=3)
-hx3 <- gumbelp(q=x,mu=3,sigma=4)
-jpeg("graph2.jpeg",height = 6, width = 8, units = 'in',res=800)
-  plot(x, hx, type="l", lty=2,lwd=2)
-      lines(x,hx1,col=colors[2],lwd=2)
-      lines(x,hx2,col=colors[3],lwd=2)
-      lines(x,hx3,col=colors[4],lwd=2)
+hx  <- gumbelp(q = x, mu = 0, sigma = 1)
+hx1 <- gumbelp(q = x, mu = 0.5, sigma = 2)
+hx2 <- gumbelp(q = x, mu = 1.5, sigma = 3)
+hx3 <- gumbelp(q = x, mu = 3, sigma = 4)
+jpeg("graph2.jpeg", height = 6, width = 8, units = 'in', res = 800)
+  plot(x, hx, type = "l", lty = 2, lwd = 2)
+      lines(x, hx1, col = colors[2], lwd = 2)
+      lines(x, hx2, col = colors[3], lwd = 2)
+      lines(x, hx3, col = colors[4], lwd = 2)
 legend("bottomright", inset=.05,
-       labels, lwd=2, lty=c(2, 1, 1, 1), col=colors)
+       labels, lwd = 2, lty=c(2, 1, 1, 1), col = colors)
 dev.off()
 #----------------------------------------------------------
-y   <- gumbelr(n=200,mu=2,sigma=3)
-fit <- fitdist(y, "gumbel",start=list(mu=2,sigma=3))
-jpeg("graph3.jpeg",height = 6, width = 8, units = 'in',res=800)
+y   <- gumbelr(n = 200, mu = 2, sigma = 3)
+fit <- fitdist(y, "gumbel", start=list(mu = 2, sigma = 3))
+jpeg("graph3.jpeg",height = 6, width = 8, units = 'in', res = 800)
 plot(fit)
 dev.off()
 
 #-----------------------------------------------------------------------
 #Estimacao por MLE
-mu <- 1.5
+mu    <- 1.5
 sigma <- 2
 theta <- c(mu,sigma)
+
 set.seed(666)
 x <- gumbelr(n=1000,mu=theta[1],sigma=theta[2])
 n<-length(x)
