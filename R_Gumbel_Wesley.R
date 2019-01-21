@@ -10,7 +10,7 @@ library(fitdistrplus)
 library(reliaR)
 rm(list = ls())
 
-#---------------------------------------------------------
+#-----------------------------------------------------------
 # Funcao densidade de probabilidade (d) fdp
 gumbeld <- function(x,mu,sigma){
   aux <- ((x - mu)/sigma)
@@ -48,7 +48,7 @@ jpeg("graph0.jpeg",height = 6, width = 8, units = 'in', res = 800)
   hist(va,probability = T)
      curve(gumbeld(x, mu=2, sigma=1.5), add=TRUE,col = "blue", lwd = 2)
 dev.off()
-#-----------------------------------------------------------------------
+#-----------------------------------------------------------
 # Grafico da densidade
 x   <- seq(-4, 20, length=1000)
 hx  <- gumbeld(x = x, mu = 0, sigma = 1)
@@ -69,7 +69,7 @@ legend("topright", inset=.05,
        labels, lwd = 2, lty=c(2, 1, 1, 1), col = colors)
 dev.off()
 
-#----------------------------------------------------------
+#-----------------------------------------------------------
 # Grafico da acumulada 
 hx  <- gumbelp(q = x, mu = 0, sigma = 1)
 hx1 <- gumbelp(q = x, mu = 0.5, sigma = 2)
@@ -90,7 +90,7 @@ jpeg("graph3.jpeg",height = 6, width = 8, units = 'in', res = 800)
 plot(fit)
 dev.off()
 
-#-----------------------------------------------------------------------
+#-----------------------------------------------------------
 #Estimacao por MLE
 mu    <- 1.5
 sigma <- 2
@@ -109,7 +109,7 @@ logLEgumbel <- function(theta){
 library(maxLik)
 maxLik(logLik = logLEgumbel, start = c(1.3,2))
 
-#-----------------------------------------------------
+#-----------------------------------------------------------
 #Metodo dos momentos
 library(reliaR)
 x<-rgumbel(n=500,mu=1.5,sigma=2)
@@ -128,7 +128,8 @@ library(gmm)
   vcov(mm)
     muest<-mm$coefficients[1]
     sigmaest<-mm$coefficients[2]
-#-------------------------------------------------------------------
+
+#-----------------------------------------------------------
 #QQplot
 library(fastR)
 qgumbel.plot <- function(x){qgumbel(x,muest,sigmaest)}
@@ -137,7 +138,7 @@ xqqmath(x, distribution = qgumbel.plot,
         xlab = "Quantil gumbel",
         ylab = "Quantil amostral")
 dev.off()
-#-----------------------------------------------------------------------------
+#-----------------------------------------------------------
 #Score
 Uscore <- function(n, x, theta){
   mu <- theta[1]
@@ -148,7 +149,7 @@ Uscore <- function(n, x, theta){
   Es[2] <- (sum((mu-x) * exp(Z) + x) - (mu + sigma) * n) / sigma ^ 2
   return(Es)
 }
-#-------------------------------------------------------------------------
+#-----------------------------------------------------------
 # Matriz Hessiana 
 Hessian <- function(n, x, theta){
   mu <- theta[1]
@@ -161,8 +162,7 @@ Hessian <- function(n, x, theta){
   Hs[2,2] <- (2 * n * mu * sigma+n*sigma^2
               -sum((-x+mu)*(mu+2*sigma-x)*exp(W) + 2 * x * sigma)) / sigma ^ 4
   return(Hs)}
-#------------------------------------------------------------------------
-#-----------------------------------------------------
+#-----------------------------------------------------------
 #Iniciando a simulacao
 par1<-1.5 #mu
 par2<-2 #sigma
