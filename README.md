@@ -1,3 +1,5 @@
+> Work of March, 2016.
+
 # Distribuição Gumbel no SAS e R
 
 A distribuição Gumbel ou também conhecida como valor extremo, surge quando consideramos o logaritmo natural de uma variável aleatória com distribuição de Weibull. Ou seja, se a variável x tem uma distribuição Weibull com parâmetros alpha(escala) e beta(forma), então a variável Y = log(x) detêm uma distribuição Gumbel.
